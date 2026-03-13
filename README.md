@@ -1,95 +1,126 @@
 # Solar Shadow Map
 
-<p align="center"><strong>건물 그림자가 공터에 미치는 영향을 시뮬레이션하는 인터랙티브 웹 앱</strong></p>
+실제 주소 검색과 공공 건물 데이터를 기반으로 공터 일조권을 분석하는 React 기반 웹 앱입니다.  
+주소를 선택하면 주변 건물을 자동으로 불러오고, 2D 평면도와 React Three Fiber 3D 뷰에서 하루 및 연간 일조 변화를 바로 확인할 수 있습니다.
 
-<p align="center">
-  <a href="https://react.dev"><img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React 19" /></a>
-  <a href="https://threejs.org"><img src="https://img.shields.io/badge/Three.js-0.183-black?style=for-the-badge&logo=threedotjs&logoColor=white" alt="Three.js" /></a>
-  <a href="https://www.chartjs.org"><img src="https://img.shields.io/badge/Chart.js-4.5-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white" alt="Chart.js" /></a>
-  <a href="https://vite.dev"><img src="https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 8" /></a>
-</p>
+## 핵심 업그레이드
 
-<p align="center">
-  <a href="https://solar-shadow-map.vercel.app">Live Demo</a>
-</p>
+- 카카오 주소 검색으로 실제 위치 선택
+- VWorld 건물 데이터로 반경 200m 건물 자동 로딩
+- 다크모드 기반 반응형 대시보드 UI
+- 날짜 선택 + 시간 슬라이더 + 연간 일조 히트맵
+- 건물 시나리오 로컬 저장 / JSON 내보내기 / JSON 불러오기
+- Web Worker 기반 일조 계산 분리
+- Three.js 직접 제어 대신 React Three Fiber 기반 3D 장면
 
----
+## 기술 스택
 
-## Features
+- React 19
+- Vite 8
+- React Three Fiber + Drei
+- Chart.js
+- Canvas 2D API
+- Kakao Maps JavaScript SDK
+- VWorld Data API
 
-| Feature | Description |
-|---------|-------------|
-| **2D Floor Plan** | Canvas 기반 건물 배치, 드래그/추가/삭제/높이 조절 |
-| **3D View** | Three.js PCF Soft Shadow Map으로 실시간 3D 렌더링 |
-| **Sunlight Chart** | Chart.js 이중 Y축 — 시간대별 일조 면적(%) + 태양 고도각 |
-| **Day Playback** | 시간 슬라이더 애니메이션으로 하루 그림자 변화 재생 |
-| **City Presets** | 서울 · 부산 · 제주 · 도쿄 · 뉴욕 위도 프리셋 |
-
-## How It Works
-
-```
-태양 위치 계산 (위도 + Day of Year)
-        │
-        ▼
-  고도각 · 방위각 → 건물별 그림자 투영
-        │
-        ▼
-  Convex Hull (Andrew's Monotone Chain)
-        │
-        ▼
-  Point-in-Polygon (Ray Casting) → 일조 면적 %
-```
-
-### Core Algorithms
-
-- **Solar Position** — 위도와 일수(Day of Year) 기반 천문 공식으로 태양 고도각·방위각 계산
-- **Shadow Projection** — 건물 높이 + 태양 고도각으로 그림자 길이·방향 산출
-- **Convex Hull** — Andrew's Monotone Chain 알고리즘으로 그림자 다각형 생성
-- **Sunlit Area** — Ray Casting 기반 Point-in-Polygon으로 공터 내 일조 면적 샘플링
-
-## Tech Stack
-
-- **React 19** — Hooks (useState, useEffect, useRef, useMemo)
-- **Three.js** — 3D 렌더링, PCFSoftShadowMap, OrbitControls
-- **Chart.js** — 반응형 Bar/Line 복합 차트
-- **Canvas 2D API** — 커스텀 2D 평면도 렌더러
-- **Vite 8** — HMR, 빌드 최적화
-
-## Quick Start
+## 실행
 
 ```bash
 git clone https://github.com/zln02/solar-shadow-map-.git
 cd solar-shadow-map-
 npm install
+cp .env.example .env
+```
+
+`.env`에 아래 값을 넣습니다.
+
+```bash
+VITE_KAKAO_API_KEY=...
+VITE_VWORLD_API_KEY=...
+```
+
+그다음 실행합니다.
+
+```bash
 npm run dev
 ```
 
-`http://localhost:5173` 에서 확인
-
-## Project Structure
-
-```
-src/
-├── main.jsx              # Entry point
-├── App.jsx               # App wrapper
-├── ShadowSimulator.jsx   # Core simulator (660 lines)
-│   ├── Solar position calculation
-│   ├── 2D Canvas renderer
-│   ├── Three.js 3D scene
-│   └── Chart.js sunlight graph
-├── App.css               # Styles
-└── index.css             # Global styles
-```
-
-## Deployment
-
-Vercel에 배포됨. `main` 브랜치 push 시 자동 배포.
+빌드 확인:
 
 ```bash
-npm run build   # dist/ 생성
-npm run preview # 로컬 프리뷰
+npm run build
+npm run preview
 ```
 
-## License
+## 제공 기능
 
-MIT
+### 1. 실제 주소 기반 시뮬레이션
+
+- 카카오 주소 검색으로 실제 위치를 선택
+- 선택 즉시 위도/경도 갱신
+- 지도 위 중심점과 공터 영역 표시
+
+### 2. 실제 건물 데이터 로딩
+
+- VWorld API로 주변 건물 footprint와 높이 정보 로딩
+- 공공데이터가 없거나 API 키가 없으면 수동 시뮬레이션 모드로 graceful fallback
+- 수동 건물은 신축 가정 시뮬레이션 용도로 유지
+
+### 3. 분석
+
+- 시간대별 일조 면적 차트
+- 연속 / 누적 일조시간 계산
+- 월별 연간 일조 히트맵
+- 날짜별, 시간별 태양 위치 반영
+
+### 4. 저장 / 불러오기
+
+- 로컬 스냅샷 저장
+- JSON 파일 내보내기
+- 저장한 시나리오 재불러오기
+
+### 5. 성능 개선
+
+- Web Worker에서 하루 / 연간 일조 분석 계산
+- React Three Fiber로 3D 렌더링 분리
+
+## 프로젝트 구조
+
+```text
+src/
+├── components/
+│   ├── AddressSearch.jsx
+│   ├── KakaoMapPanel.jsx
+│   ├── PlanCanvas.jsx
+│   ├── Scene3D.jsx
+│   ├── SunlightChart.jsx
+│   ├── AnnualHeatmap.jsx
+│   ├── BuildingSidebar.jsx
+│   └── AnalysisPanel.jsx
+├── data/
+│   └── cities.js
+├── hooks/
+│   ├── useKakaoLoader.js
+│   ├── usePublicBuildings.js
+│   └── useSolarAnalysis.js
+├── utils/
+│   ├── geometry.js
+│   ├── publicData.js
+│   ├── solar.js
+│   └── storage.js
+└── workers/
+    └── solarWorker.js
+```
+
+## 알고리즘 메모
+
+- 태양 위치 계산: 위도 + 연중 일수 + 시각 기반 고도각/방위각 계산
+- 그림자 다각형: 건물 직사각형 footprint를 태양 반대 방향으로 투영
+- 일조 면적 샘플링: target area grid 샘플의 point-in-polygon 판정
+- 연간 분석: 월별 대표일(21일) 기준 시간 샘플 평균
+
+## 배포 메모
+
+- `vercel.json` 포함
+- 환경변수는 Vercel 프로젝트 환경변수로 주입
+- OG 메타 태그와 preview SVG 포함

@@ -1,0 +1,22 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="36" fill="#070B14"/>
+  <circle cx="964" cy="126" r="118" fill="#F59E0B" fill-opacity="0.18"/>
+  <circle cx="246" cy="498" r="180" fill="#14B8A6" fill-opacity="0.12"/>
+  <rect x="86" y="84" width="1028" height="462" rx="28" fill="#0F172A" stroke="rgba(148,163,184,0.2)"/>
+  <rect x="138" y="152" width="370" height="256" rx="24" fill="#111827"/>
+  <rect x="552" y="152" width="500" height="118" rx="24" fill="#111827"/>
+  <rect x="552" y="292" width="500" height="116" rx="24" fill="#111827"/>
+  <rect x="552" y="430" width="500" height="60" rx="18" fill="#111827"/>
+  <rect x="196" y="300" width="120" height="72" rx="12" fill="#14B8A6" fill-opacity="0.28" stroke="#5EEAD4"/>
+  <rect x="330" y="212" width="102" height="134" rx="12" fill="#F59E0B" fill-opacity="0.26" stroke="#FDBA74"/>
+  <path d="M175 249L313 142L451 249" stroke="#F8FAFC" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M658 218H953" stroke="#334155" stroke-width="14" stroke-linecap="round"/>
+  <path d="M658 250H908" stroke="#334155" stroke-width="14" stroke-linecap="round"/>
+  <path d="M658 360H992" stroke="#334155" stroke-width="14" stroke-linecap="round"/>
+  <path d="M658 392H864" stroke="#334155" stroke-width="14" stroke-linecap="round"/>
+  <rect x="658" y="452" width="116" height="18" rx="9" fill="#14B8A6"/>
+  <rect x="792" y="452" width="116" height="18" rx="9" fill="#F59E0B"/>
+  <rect x="926" y="452" width="116" height="18" rx="9" fill="#EF4444"/>
+  <text x="140" y="120" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="58" font-weight="700">Solar Shadow Map</text>
+  <text x="140" y="488" fill="#94A3B8" font-family="Arial, sans-serif" font-size="28">실제 주소 검색 · 공공 건물 데이터 · 연간 일조 히트맵</text>
+</svg>
